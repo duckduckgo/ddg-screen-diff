@@ -1,0 +1,10 @@
+{
+  "name": "ddg-screen-diff",
+  "version": "0.0.1",
+  "dependencies": {
+    "bluebird": "2.9.33",
+    "gm": "1.18.1",
+    "selenium-webdriver": "2.46.1",
+    "yargs": "3.15.0"
+  }
+}
