@@ -151,6 +151,30 @@ https://foo.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
 https://bar.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
 ```
 
+You can also specify a list of sizes and browsers to be run on a group item. These override the settings passed via the CLI. So for example, given the following group called `override`:
+
+```json
+[
+    {"command": "search", "commandValue": "kitchen sink", "browsers": ["ie8", "firefox"], "sizes": ["s"]},
+    {"command": "search", "commandValue": "glass hammer"}
+]
+```
+
+And the following call:
+
+```
+$ ddg-screen-diff group "override" -b chrome -s xl m
+```
+
+Will result in the following screenshots being taken:
+
+```
+https://foo.duckduckgo.com/?q=kitchen+sink on firefox at size s
+https://foo.duckduckgo.com/?q=kitchen+sink on ie8 at size s
+https://foo.duckduckgo.com/?q=glass+hammer on chrome at size xl
+https://foo.duckduckgo.com/?q=glass+hammer on chrome at size m
+```
+
 Hostnames and diffing
 ---
 
