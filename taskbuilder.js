@@ -260,7 +260,11 @@ function buildGroup(ops) {
     // - commandValue
     // - query (only for command "ia")
     //
-    // for each of these items we run `exports.build`, as if each command
+    // we also allow these properties to override the ones from the CLI:
+    // - browsers
+    // - sizes
+    //
+    // for each of the group items we run `exports.build`, as if each command
     // was called from the command line
     //
     // that means we can have nested groups!
@@ -270,6 +274,14 @@ function buildGroup(ops) {
         opsCopy.command = groupItem.command;
         opsCopy.commandValue = groupItem.commandValue;
         opsCopy.query = groupItem.query;
+
+        if (groupItem.browsers && groupItem.browsers.length) {
+            opsCopy.browsers = groupItem.browsers;
+        }
+
+        if (groupItem.sizes && groupItem.sizes.length) {
+            opsCopy.sizes = groupItem.sizes;
+        }
 
         return exports.build(opsCopy);
     });
