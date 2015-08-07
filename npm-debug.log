@@ -1,0 +1,71 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'publish' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.37
+4 verbose node symlink /usr/bin/node
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . /home/ubuntu/.npm/3a52ce78-.lock
+11 verbose tar pack [ '/home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz', '.' ]
+12 verbose tarball /home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz
+13 verbose folder .
+14 info prepublish ddg-screen-diff@0.0.1
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. /home/ubuntu/.npm/1f1177db-tar.lock
+17 silly lockFile 4b691565-dg-screen-diff-0-0-1-package-tgz tar:///home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz
+18 verbose lock tar:///home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz /home/ubuntu/.npm/4b691565-dg-screen-diff-0-0-1-package-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile 4b691565-dg-screen-diff-0-0-1-package-tgz tar:///home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz
+22 silly lockFile 4b691565-dg-screen-diff-0-0-1-package-tgz tar:///home/ubuntu/.npm/ddg-screen-diff/0.0.1/package.tgz
+23 silly lockFile 757482b3-pm-ddg-screen-diff-0-0-1-package /home/ubuntu/.npm/ddg-screen-diff/0.0.1/package
+24 verbose lock /home/ubuntu/.npm/ddg-screen-diff/0.0.1/package /home/ubuntu/.npm/757482b3-pm-ddg-screen-diff-0-0-1-package.lock
+25 silly lockFile 757482b3-pm-ddg-screen-diff-0-0-1-package /home/ubuntu/.npm/ddg-screen-diff/0.0.1/package
+26 silly lockFile 757482b3-pm-ddg-screen-diff-0-0-1-package /home/ubuntu/.npm/ddg-screen-diff/0.0.1/package
+27 silly lockFile 3a52ce78- .
+28 silly lockFile 3a52ce78- .
+29 silly publish { name: 'ddg-screen-diff',
+29 silly publish   version: '0.0.1',
+29 silly publish   description: 'Visual regression tool for DuckDuckGo',
+29 silly publish   bin: { 'ddg-screen-diff': './run.js' },
+29 silly publish   main: './run.js',
+29 silly publish   repository:
+29 silly publish    { type: 'git',
+29 silly publish      url: 'https://github.com/duckduckgo/ddg-screen-diff' },
+29 silly publish   dependencies:
+29 silly publish    { bluebird: '2.9.33',
+29 silly publish      gm: '1.18.1',
+29 silly publish      'selenium-webdriver': '2.46.1',
+29 silly publish      yargs: '3.15.0' },
+29 silly publish   readme: 'Screen-diff tool\n===\n\nThe `ddg-screen-diff` tool can take a screenshot of a given page / search / IA, against any hostname, with multiple browsers.\n\nThis is an internal tool and is still under active development. Our priorities are:\n\n1. Make it as useful as possible for our internal team.\n2. Make it useful to our open source contributors.\n3. Break it apart into a generalized NPM module with a plugin-based architecture that anyone could use for their own website.\n\nIf you have any ideas about how to make this happen feel free to create an issue or a pull request.\n\nUsage\n---\n\n```\n$ ddg-screen-diff -h\n\nUsage: ddg-screen-diff [--version] [--help] <command> ... [options]\n\nCommands:\n  search  Create a screenshot against a search query\n  path    Create a screenshot against an arbitrary path\n  ia      Create a screenshot against an IA\n  group   Create a screenshot against a pre-defined group\n  update  Update all the NPM dependencies for this package\n\nOptions:\n  --version   Show version number                                                          [boolean]\n  -h, --help  Show help                                                                    [boolean]\n\n```\n\nSearch commands\n---\n\n### path\n\n```\nUsage: ddg-screen-diff path <path> [<host|env> ...] [options]\n```\n\nTakes a screenshot against an arbitrary path. Useful for taking screenshots of queries that need a lot of query string parameters, and static pages.\n\n```\n$ ddg-screen-diff path "?q=big+apple"\n$ ddg-screen-diff path "bangs"\n```\n\n### search\n\n```\nUsage: ddg-screen-diff search <query> [<host|env> ...] [options]\n```\n\nTakes a screenshot against an arbitrary query.\n\n```\n$ ddg-screen-diff search "big apple"\n```\n\n(This is more or less the same as `ddg-screen-diff path "?q=big+apple"`.)\n\n### ia\n\n```\nUsage: ddg-screen-diff ia <ia name> [--query <query>] [<host|env> ...] [options]\n```\n\nTakes a screenshot for an IA by name.\n\n```\n$ ddg-screen-diff ia products\n```\n\nBy default this takes the example query from the IA metadata, so the above is equivalent to `ddg-screen-diff path "?q=ipad+2&ia=products`.\n\nTo check this IA against a different query, pass in the `-q`/`--query` argument:\n\n```\n$ ddg-screen-diff ia products --query "kitchen sink"\n```\n\n### group\n\n```\nUsage: ddg-screen-diff group <group name> [<host|env> ...] [options]\n```\n\nTake screenshot for a predefined list of commands. Useful for testing a template across several different IAs, etc. These are defined in JSON files. These are assumed to be in `groupDir`, which is specified in the config.\n\nHere\'s the `example` group, defined in `example.json` in that folder:\n\n```json\n[\n    { "command": "search", "commandValue": "kitchen sink" },\n    { "command": "path", "commandValue": "?q=kitchen+sink&kz=-1" },\n    { "command": "ia", "commandValue": "products", "query": "kitchen sink" }\n]\n```\n\nEach of these lines is the same as a command line call using the tool. So the following are pretty much equivalent:\n\n```\n$ ddg-screen-diff group "example"\n\nand\n\n$ ddg-screen-diff search "kitchen sink"\n$ ddg-screen-diff path "?q=kitchen+sink&kz=-1"\n$ ddg-screen-diff ia products -q "kitchen sink"\n```\n\nThe difference is that the former call will output the resulting screenshots and diffs on the same page.\n\nA possible value for the `command` property is `group`, so you can call groups from a group - just be careful not to recurse!\n\n#### Adding a new group\n\nTo create a new group, add a new JSON file in the `groupDir`.\n\nSay you add `[groupDir]/attribution.json`. You can invoke this group by calling:\n\n```\n$ ddg-screen-diff group "attribution"\n```\n\n#### Options\n\nAll the options for the other screenshot commands work here. So, say you\'re on instance `foo`. Calling:\n\n```\n$ ddg-screen-diff group "example" bar -b firefox chrome\n```\n\nresults in 12 screenshots in total with 6 diffs between them:\n\n```\nhttps://foo.duckduckgo.com/?q=kitchen+sink on firefox\nhttps://bar.duckduckgo.com/?q=kitchen+sink on firefox\nhttps://foo.duckduckgo.com/?q=kitchen+sink on chrome\nhttps://bar.duckduckgo.com/?q=kitchen+sink on chrome\nhttps://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox\nhttps://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox\nhttps://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome\nhttps://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome\nhttps://foo.duckduckgo.com/?q=kitchen+sink&ia=products on firefox\nhttps://bar.duckduckgo.com/?q=kitchen+sink&ia=products on firefox\nhttps://foo.duckduckgo.com/?q=kitchen+sink&ia=products on chrome\nhttps://bar.duckduckgo.com/?q=kitchen+sink&ia=products on chrome\n```\n\nHostnames and diffing\n---\n\nBy default, any of the search commands runs a search on the instance you\'re currently on. You can compare it against another host by passing that hostname as an extra argument.\n\nThe following will run a search against the instance you\'re on and another one called `foo`:\n\n```\n$ ddg-screen-diff ia products foo\n```\n\nPassing another hostname will diff those two hostnames. The following will compare hosts `foo` and `bar`:\n\n```\n$ ddg-screen-diff ia products foo bar\n```\n\nPassing more hostnames will simply take screenshots for those instances, without running an image diff:\n\n```\n$ ddg-screen-diff ia products foo bar baz qux\n```\n\nPassing `prod` or `production` as a hostname will alias it to the production server.\n\nOther options\n---\n\n### `-b`/`--browsers`\n\nPass in a list of browsers to run the query against. By default the query is run headlessly with PhantomJS.\n\nAny other browsers are run on BrowserStack\'s service, so they\'ll run a bit more slowly.\n\nIf you\'ve got an account with them, set your login credentials in the env variables `DDG_BROWSERSTACK_USERNAME` and `DDG_BROWSERSTACK_KEY`.\n\nAs an example, if you wanted to run the tool on IE8, phantomjs and Firefox, you can run:\n\n```\n$ ddg-screen-diff ia products -b ie8 phantomjs firefox\n```\n\nPassing `desktop` aliases to the latest versions of IE, Firefox, Chrome and Safari.\n\nPassing `mobile` aliases to the latest (available) versions of the iOS and Android browsers.\n\nPassing `all` aliases to all browsers in the `desktop` and `mobile` lists.\n\nType in `ddg-screen-diff search -h` to see a full list of the browsers supported.\n\n\n### `-s`/`--sizes`\n\nPass one or more sizes to run the query against.\n\nThe available screen sizes are based on our breakpoints.\n\nType in `ddg-screen-diff search -h` to see a full list of the screen sizes supported. The default is "m", or 630x354 - which is just above our mobile breakpoint.\n\n**Note:** this is only for desktop, for mobile browsers the screen size will depend on the device.\n\n### `-l`/`--landscape`\n\nMobile/iOS only. Take the screenshot in landscape mode.\n',
+29 silly publish   readmeFilename: 'README.md',
+29 silly publish   gitHead: '7dbcac7affe0ce1ff7c8a9da42a2f7abf1709145',
+29 silly publish   bugs: { url: 'https://github.com/duckduckgo/ddg-screen-diff/issues' },
+29 silly publish   homepage: 'https://github.com/duckduckgo/ddg-screen-diff',
+29 silly publish   _id: 'ddg-screen-diff@0.0.1',
+29 silly publish   scripts: {},
+29 silly publish   _shasum: '7bd67809c393f31c714c3f1ad56bc373f8f23e9b',
+29 silly publish   _from: '.' }
+30 error need auth auth and email required for publishing
+30 error need auth You need to authorize this machine using `npm adduser`
+31 error System Linux 3.2.0-38-virtual
+32 error command "/usr/bin/node" "/usr/bin/npm" "publish"
+33 error cwd /home/ubuntu/ddg-screen-diff
+34 error node -v v0.10.37
+35 error npm -v 1.4.28
+36 error code ENEEDAUTH
+37 verbose exit [ 1, true ]
