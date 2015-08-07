@@ -1,9 +1,7 @@
 var webdriver = require("selenium-webdriver"),
     browserUtils = require("./browserutils"),
     BBPromise = require("bluebird"),
-    until = webdriver.until,
-
-    cachedDrivers = {};
+    until = webdriver.until;
 
 /**
  * Helper method, waits until everything on the page has loaded
@@ -91,8 +89,9 @@ function tryAndLoadUrl(url, driver, deferred) {
  * connect to remote service and use one of theirs
  *
  * @param {object} task
+ * @param {object} cachedDrivers
  */
-function getDriver(task) {
+function getDriver(task, cachedDrivers) {
     var browserShortName = task.browser;
 
     // we cache drivers we've previously built on this run to make things speedier
@@ -141,13 +140,14 @@ function getDriver(task) {
  * The function returned will be called when the task is about to be run
  * 
  * @param {object} task - a list of the task properties is in taskbuilder.js
+ * @param {object} cachedDrivers
  * @return {function}
  */
-function getScreenshotPromise(task) {
+function getScreenshotPromise(task, cachedDrivers) {
     return function () {
         var deferred = webdriver.promise.defer(),
             url = "https://" + task.host + "/" + task.path,
-            driver = getDriver(task);
+            driver = getDriver(task, cachedDrivers);
 
         console.log("taking screenshot for", url,
             "on", task.browser,
@@ -186,17 +186,16 @@ exports.runTasks = function (tasks) {
     // are different, so to maintain a consistent API we wrap any output
     // in a bluebird promise
     return new BBPromise(function (resolve, reject) {
-        var flow = webdriver.promise.controlFlow(),
-            completedTasks = [];
-
-        cachedDrivers = {};
+        var flow = new webdriver.promise.ControlFlow(),
+            completedTasks = [],
+            cachedDrivers = {};
 
         flow.on("uncaughtException", reject);
 
         console.log("taking " + tasks.length + " screenshot" + (tasks.length > 1 ? "s" : ""));
 
         tasks.forEach(function (task) {
-            flow.execute(getScreenshotPromise(task)).then(function (screenshotBase64) {
+            flow.execute(getScreenshotPromise(task, cachedDrivers)).then(function (screenshotBase64) {
                 task.base64Data = screenshotBase64;
                 completedTasks.push(task);
 
