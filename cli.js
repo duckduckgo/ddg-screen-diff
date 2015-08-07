@@ -32,6 +32,12 @@ var yargs = require("yargs"),
             alias: "landscape",
             describe: "take screenshot in landscape mode (mobile only)",
             type: "boolean"
+        },
+        "n": {
+            alias: "num-tasks",
+            describe: "maximum number of screenshot tasks to be run in parallel",
+            type: "number",
+            default: 5
         }
     },
 
@@ -113,6 +119,7 @@ exports.check = function () {
     ops.sizes = argv.s;
     ops.query = argv.q;
     ops.landscape = argv.l;
+    ops.numTasks = argv.n;
 
     if (COMMANDS.indexOf(ops.command) === -1) {
         yargs.showHelp();
