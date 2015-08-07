@@ -32,6 +32,11 @@ var yargs = require("yargs"),
             alias: "landscape",
             describe: "take screenshot in landscape mode (mobile only)",
             type: "boolean"
+        },
+        "a": {
+            alias: "action",
+            describe: "the name of an action to run before taking the screenshot; actions are defined in an a JSON file, the location of which is in your config",
+            type: "string"
         }
     },
 
@@ -113,6 +118,7 @@ exports.check = function () {
     ops.sizes = argv.s;
     ops.query = argv.q;
     ops.landscape = argv.l;
+    ops.action = argv.a;
 
     if (COMMANDS.indexOf(ops.command) === -1) {
         yargs.showHelp();
