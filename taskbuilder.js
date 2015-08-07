@@ -21,9 +21,6 @@
  *     lastForBrowser: true,            // whether this is the last task with this browser
  *                                      // (so we can switch off the driver for that browser and not waste minutes)
  *
- *     shouldDiff: true,                // whether the screenshot should be diffed or not
- *                                      // (all tasks have the same value for this)
- *
  *     base64Data: "...",               // added after the screenshot is taken
  *
  *     imgPath: "..."                   // absolute path to the image; added after screenshot is saved
@@ -110,7 +107,6 @@ function getLocalHostname() {
  * @param {object} ops
  *   - {string} host
  *   - {boolean} mobile
- *   - {boolean} shouldDiff
  *   - {string} browser
  *   - {string} command
  *   - {string} commandValue
@@ -130,8 +126,7 @@ function getTask(ops) {
     task = {
         host: host,
         path: getPath(ops),
-        browser: ops.browser,
-        shouldDiff: ops.shouldDiff
+        browser: ops.browser
     };
 
     if (browserUtils.isMobile(ops.browser)) {
@@ -203,18 +198,13 @@ function addLastForBrowser(tasks) {
  * @returns {array}
  */
 function getTasks(ops) {
-    var tasks = [],
-        shouldDiff;
+    var tasks = [];
 
     // if we've got no hostnames passed, we screenshot our own instance
     // if we've got one hostname, we diff it against our own instance
     if (ops.hosts.length <= 1) {
         ops.hosts.unshift(getLocalHostname());
     }
-
-    // only diff if we've got two hosts - no point in doing it
-    // if there's more
-    ops.shouldDiff = ops.hosts.length === 2;
 
     // create tasks for each screen size, browser and host passed
     ops.sizes.forEach(function (sizeName) {
