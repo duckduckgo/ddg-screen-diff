@@ -278,6 +278,7 @@ function buildGroup(ops) {
     // we also allow these properties to override the ones from the CLI:
     // - browsers
     // - sizes
+    // - action
     //
     // for each of the group items we run `exports.build`, as if each command
     // was called from the command line
@@ -296,6 +297,10 @@ function buildGroup(ops) {
 
         if (groupItem.sizes && groupItem.sizes.length) {
             opsCopy.sizes = groupItem.sizes;
+        }
+
+        if (groupItem.action) {
+            opsCopy.action = groupItem.action;
         }
 
         return exports.build(opsCopy);
