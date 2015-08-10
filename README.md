@@ -243,3 +243,12 @@ Mobile/iOS only. Take the screenshot in landscape mode.
 ### `-m`/`--max-parallel-tasks`
 
 How many screenshot tasks to run in parallel. Default is 2. If running against a third-party service, you may have a limit on how many tasks you can run at the same time.
+
+### `-d`/`--diff`
+
+Runs an image diff between the screenshots.
+
+If you passed in two hosts, the diff is between those two.
+If you passed in one host, the other one is assumed to be your local host.
+
+In any other case, the app throws an error.
