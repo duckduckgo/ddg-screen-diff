@@ -192,8 +192,6 @@ exports.runTasks = function (tasks) {
 
         flow.on("uncaughtException", reject);
 
-        console.log("taking " + tasks.length + " screenshot" + (tasks.length > 1 ? "s" : ""));
-
         tasks.forEach(function (task) {
             flow.execute(getScreenshotPromise(task, cachedDrivers)).then(function (screenshotBase64) {
                 task.base64Data = screenshotBase64;

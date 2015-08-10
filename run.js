@@ -2,6 +2,7 @@
 
 var screenshotTaker = require("./screenshot"),
     taskBuilder = require("./taskbuilder"),
+    taskUtils = require("./taskutils"),
     cli = require("./cli"),
     Promise = require("bluebird"),
     childProcess = Promise.promisifyAll(require("child_process")),
@@ -38,7 +39,34 @@ createScreenshotDir().then(function () {
     // and build a task for each screenshot
     // see taskbuilder.js for further info on what a task object contains
     taskBuilder.build(ops)
-        .then(screenshotTaker.runTasks)
+        .then(function (tasks) {
+            // split all the tasks into batches to speed up processing
+            var batches = taskUtils.batchify(tasks, ops.numTasks),
+                message,
+                parallelPromises;
+
+            console.log("taking " + tasks.length + " screenshot"
+                + (tasks.length > 1 ? "s" : "")
+                + " in " + batches.length + " batch"
+                + (batches.length > 1 ? "es" : ""));
+
+            // set off all the tasks and grab promises for when they finish
+            parallelPromises = batches.map(function (batch) {
+                return screenshotTaker.runTasks(batch);
+            });
+
+            return Promise.all(parallelPromises);
+        })
+        .then(function (batches) {
+            // concat all the batches into the same array again
+            var tasks = [];
+
+            batches.forEach(function (batch) {
+                tasks = tasks.concat(batch);
+            });
+
+            return tasks;
+        })
         .map(saveScreenshot)
         .map(cropScreenshot)
         .then(function (tasks) {
