@@ -5,10 +5,10 @@ var MIN_TASKS_PER_BATCH = 2;
  * simultaneously
  *
  * @param {array} tasks
- * @param {integer} maxTasksInParallel
+ * @param {integer} maxParallelTasks
  * @returns {array} batches (array of arrays)
  */
-exports.batchify = function (tasks, maxTasksInParallel) {
+exports.batchify = function (tasks, maxParallelTasks) {
     var batches = [],
         browsers = [],
         tasksPerBrowser = {},
@@ -29,7 +29,7 @@ exports.batchify = function (tasks, maxTasksInParallel) {
     }
 
     // if we've got more than one browser, try to do one browser per batch
-    if (browsers.length > 1 && browsers.length <= maxTasksInParallel) {
+    if (browsers.length > 1 && browsers.length <= maxParallelTasks) {
         for (i = 0; i < browsers.length; i++) {
             batches.push(tasksPerBrowser[browsers[i]]);
         }
@@ -38,10 +38,10 @@ exports.batchify = function (tasks, maxTasksInParallel) {
     } else {
         var tasksPerBatch = Math.max(
             MIN_TASKS_PER_BATCH,
-            Math.ceil(tasks.length / maxTasksInParallel)
+            Math.ceil(tasks.length / maxParallelTasks)
         );
 
-        for (i = 0; i < maxTasksInParallel; i++) {
+        for (i = 0; i < maxParallelTasks; i++) {
             if (!tasksLeft.length) {
                 break;
             }

@@ -41,7 +41,7 @@ createScreenshotDir().then(function () {
     taskBuilder.build(ops)
         .then(function (tasks) {
             // split all the tasks into batches to speed up processing
-            var batches = taskUtils.batchify(tasks, ops.numTasks),
+            var batches = taskUtils.batchify(tasks, ops.maxParallelTasks),
                 message,
                 parallelPromises;
 
