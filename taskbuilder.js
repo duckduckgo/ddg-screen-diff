@@ -21,6 +21,11 @@
  *     lastForBrowser: true,            // whether this is the last task with this browser
  *                                      // (so we can switch off the driver for that browser and not waste minutes)
  *
+ *     shouldDiff: true,                // whether the screenshot should be diffed or not
+ *                                      // (all tasks have the same value for this)
+ *
+ *     actions: [],                     // list of actions to take before capturing the screenshot
+ *
  *     base64Data: "...",               // added after the screenshot is taken
  *
  *     imgPath: "..."                   // absolute path to the image; added after screenshot is saved
@@ -31,12 +36,14 @@ var Promise = require("bluebird"),
     os = require("os"),
     browserUtils = require("./browserutils"),
     sizeUtils = require("./sizeutils"),
+    config = require("./config"),
     childProcess = Promise.promisifyAll(require("child_process")),
     https = require("https"),
 
     DDG = "duckduckgo.com",
 
-    GROUPS_DIR = require("./config").groupDir;
+    GROUPS_DIR = config.groupDir,
+    ACTIONS_DIR = config.actionDir;
 
 /**
  * Build a path based on what command we've been given
@@ -107,15 +114,20 @@ function getLocalHostname() {
  * @param {object} ops
  *   - {string} host
  *   - {boolean} mobile
+ *   - {boolean} shouldDiff
+ *   - {boolean} landscape
+ *   - {object} size
  *   - {string} browser
  *   - {string} command
  *   - {string} commandValue
+ *   - {string} action
  *   - {string} query (ia only)
  *   - {string} tabName (ia only)
  */
 function getTask(ops) {
     var task,
-        host;
+        host,
+        actions;
 
     if (ops.host.match(/prod(uction)?/)) {
         host = DDG;
@@ -123,10 +135,20 @@ function getTask(ops) {
         host = ops.host + "." + DDG;
     }
 
+    if (ops.action) {
+        try {
+            actions = require(ACTIONS_DIR + "/" + ops.action);
+        } catch (e) {
+            throw new Error("unable to find action: " + ops.action);
+        }
+    }
+
     task = {
         host: host,
         path: getPath(ops),
-        browser: ops.browser
+        browser: ops.browser,
+        shouldDiff: ops.shouldDiff,
+        actions: actions
     };
 
     if (browserUtils.isMobile(ops.browser)) {
@@ -253,6 +275,7 @@ function buildGroup(ops) {
     // we also allow these properties to override the ones from the CLI:
     // - browsers
     // - sizes
+    // - action
     //
     // for each of the group items we run `exports.build`, as if each command
     // was called from the command line
@@ -271,6 +294,10 @@ function buildGroup(ops) {
 
         if (groupItem.sizes && groupItem.sizes.length) {
             opsCopy.sizes = groupItem.sizes;
+        }
+
+        if (groupItem.action) {
+            opsCopy.action = groupItem.action;
         }
 
         return exports.build(opsCopy);

@@ -12,7 +12,9 @@ if (process.env.DDG_SCREENDIFF_CONFIG) {
         // this is only used for the message once everything's done
         outputDir: process.cwd() + "/screenshots",
         // the directory where group JSON files are stored
-        groupDir: process.cwd()
+        groupDir: process.cwd(),
+        // the directory where action JSON files are stored
+        actionDir: process.cwd()
     };
 }
 

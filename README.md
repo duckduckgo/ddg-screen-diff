@@ -151,7 +151,7 @@ https://foo.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
 https://bar.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
 ```
 
-You can also specify a list of sizes and browsers to be run on a group item. These override the settings passed via the CLI. So for example, given the following group called `override`:
+You can also specify a list of sizes and browsers to be run on a group item, as well as an action name. These override the settings passed via the CLI. So for example, given the following group called `override`:
 
 ```json
 [
@@ -199,6 +199,30 @@ $ ddg-screen-diff ia products foo bar baz qux
 ```
 
 Passing `prod` or `production` as a hostname will alias it to the production server.
+
+Actions
+---
+
+With any screenshot command you can pass the `--action`/`-a` option to specify the name of an action to run before taking the screenshot. These are defined in a folder specified under `actionDir` in your config.
+
+Here's an example action file called `click_button_and_mouse_out.json`:
+
+```json
+[
+    { "action": "click", target: "#button_id" },
+    { "action": "mouseMove", target: { x: 10, y: 10 }
+]
+```
+
+You invoke that by running:
+
+```
+$ ddg-screen-diff search "foo" --action click_button_and_mouse_out
+```
+
+Currently supported values for `action` are `click`, `mouseMove`, `mouseUp` and `mouseDown`.
+
+Currently supported values for `target` are a CSS selector string or an object with `x` and `y` coordinates.
 
 Other options
 ---
