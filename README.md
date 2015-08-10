@@ -239,3 +239,7 @@ Type in `ddg-screen-diff search -h` to see a full list of the screen sizes suppo
 ### `-l`/`--landscape`
 
 Mobile/iOS only. Take the screenshot in landscape mode.
+
+### `-m`/`--max-parallel-tasks`
+
+How many screenshot tasks to run in parallel. Default is 3. If running against a third-party service, you may have a limit on how many tasks you can run at the same time.
