@@ -37,7 +37,7 @@ var yargs = require("yargs"),
             alias: "max-parallel-tasks",
             describe: "maximum number of screenshot tasks to be run in parallel",
             type: "number",
-            default: 3
+            default: 2
         }
     },
 

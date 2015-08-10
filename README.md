@@ -242,4 +242,4 @@ Mobile/iOS only. Take the screenshot in landscape mode.
 
 ### `-m`/`--max-parallel-tasks`
 
-How many screenshot tasks to run in parallel. Default is 3. If running against a third-party service, you may have a limit on how many tasks you can run at the same time.
+How many screenshot tasks to run in parallel. Default is 2. If running against a third-party service, you may have a limit on how many tasks you can run at the same time.
