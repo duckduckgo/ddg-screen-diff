@@ -33,6 +33,12 @@ var yargs = require("yargs"),
             describe: "take screenshot in landscape mode (mobile only)",
             type: "boolean"
         },
+        "m": {
+            alias: "max-parallel-tasks",
+            describe: "maximum number of screenshot tasks to be run in parallel",
+            type: "number",
+            default: 2
+        },
         "a": {
             alias: "action",
             describe: "the name of an action to run before taking the screenshot; actions are defined in an a JSON file, the location of which is in your config",
@@ -118,6 +124,7 @@ exports.check = function () {
     ops.sizes = argv.s;
     ops.query = argv.q;
     ops.landscape = argv.l;
+    ops.maxParallelTasks = argv.m;
     ops.action = argv.a;
 
     if (COMMANDS.indexOf(ops.command) === -1) {

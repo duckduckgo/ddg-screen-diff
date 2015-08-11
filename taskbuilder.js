@@ -135,10 +135,12 @@ function getTask(ops) {
         host = ops.host + "." + DDG;
     }
 
-    try {
-        actions = require(ACTIONS_DIR + "/" + ops.action);
-    } catch (e) {
-        throw new Error("unable to find action: " + ops.action);
+    if (ops.action) {
+        try {
+            actions = require(ACTIONS_DIR + "/" + ops.action);
+        } catch (e) {
+            throw new Error("unable to find action: " + ops.action);
+        }
     }
 
     task = {
@@ -218,18 +220,13 @@ function addLastForBrowser(tasks) {
  * @returns {array}
  */
 function getTasks(ops) {
-    var tasks = [],
-        shouldDiff;
+    var tasks = [];
 
     // if we've got no hostnames passed, we screenshot our own instance
     // if we've got one hostname, we diff it against our own instance
     if (ops.hosts.length <= 1) {
         ops.hosts.unshift(getLocalHostname());
     }
-
-    // only diff if we've got two hosts - no point in doing it
-    // if there's more
-    ops.shouldDiff = ops.hosts.length === 2;
 
     // create tasks for each screen size, browser and host passed
     ops.sizes.forEach(function (sizeName) {

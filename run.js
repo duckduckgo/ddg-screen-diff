@@ -2,6 +2,7 @@
 
 var screenshotTaker = require("./screenshot"),
     taskBuilder = require("./taskbuilder"),
+    taskUtils = require("./taskutils"),
     cli = require("./cli"),
     Promise = require("bluebird"),
     childProcess = Promise.promisifyAll(require("child_process")),
@@ -13,7 +14,9 @@ var screenshotTaker = require("./screenshot"),
     config = require("./config"),
 
     SCREENSHOT_DIR = config.screenshotDir,
-    OUTPUT_DIR = config.outputDir;
+    OUTPUT_DIR = config.outputDir,
+
+    shouldDiff;
 
 createScreenshotDir().then(function () {
     // read args and check if they're correct, output usage/help if necessary
@@ -26,14 +29,48 @@ createScreenshotDir().then(function () {
     // grab parsed options...
     var ops = cli.getOps();
 
+    // only diff if we've got two hosts - no point in doing it
+    // if there's more
+    // (if it's one host, the second one is assumed to be local)
+    if (ops.hosts.length === 1 || ops.hosts.length === 2) {
+        shouldDiff = true;
+    }
+
     // and build a task for each screenshot
     // see taskbuilder.js for further info on what a task object contains
     taskBuilder.build(ops)
-        .then(screenshotTaker.runTasks)
+        .then(function (tasks) {
+            // split all the tasks into batches to speed up processing
+            var batches = taskUtils.batchify(tasks, ops.maxParallelTasks),
+                message,
+                parallelPromises;
+
+            console.log("taking " + tasks.length + " screenshot"
+                + (tasks.length > 1 ? "s" : "")
+                + " in " + batches.length + " batch"
+                + (batches.length > 1 ? "es" : ""));
+
+            // set off all the tasks and grab promises for when they finish
+            parallelPromises = batches.map(function (batch) {
+                return screenshotTaker.runTasks(batch);
+            });
+
+            return Promise.all(parallelPromises);
+        })
+        .then(function (batches) {
+            // concat all the batches into the same array again
+            var tasks = [];
+
+            batches.forEach(function (batch) {
+                tasks = tasks.concat(batch);
+            });
+
+            return tasks;
+        })
         .map(saveScreenshot)
         .map(cropScreenshot)
         .then(function (tasks) {
-            return tasks[0].shouldDiff ? generateDiffs(tasks) : Promise.resolve(tasks);
+            return shouldDiff ? generateDiffs(tasks) : Promise.resolve(tasks);
         })
         .then(createPage)
         .then(function () {
@@ -164,7 +201,7 @@ function createPage(tasks) {
         + "<meta http-equiv='Pragma' content='no-cache' />"
         + "<meta http-equiv='Expires' content='0' /><body><table border='5'>";
 
-    if (tasks[0].shouldDiff) {
+    if (shouldDiff) {
         for (i = 0; i < tasks.length; i += 2) {
             diffPath = i + "and" + (i + 1) + "diff.png";
 
