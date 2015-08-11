@@ -1,5 +1,6 @@
 var webdriver = require("selenium-webdriver"),
     browserUtils = require("./browserutils"),
+    actions = require("./actions"),
     BBPromise = require("bluebird"),
     until = webdriver.until;
 
@@ -159,11 +160,21 @@ function getScreenshotPromise(task, cachedDrivers) {
         }
 
         tryAndLoadUrl(url, driver).then(function () {
+            // run any actions that we've defined
+            if (task.actions) {
+                actions.run(driver, task.actions);
+
+                // give a chance for anything necessary to load
+                // as a result of the actions
+                driver.wait(untilPageHasLoaded(driver));
+            }
+
             if (task.browser === "phantomjs") {
                 // phantomjs needs some extra time here to render things.
                 // not sure why.
                 driver.sleep(1000);
             }
+
             // take screenshot and return the base64 data
             driver.takeScreenshot().then(function (screenshotBase64) {
                 deferred.fulfill(screenshotBase64);

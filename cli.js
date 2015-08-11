@@ -45,6 +45,11 @@ var yargs = require("yargs"),
                 + "if 1 host   is given, compare the host with localhost\n"
                 + "if 2 hosts are given, compare the two hosts",
             type: "boolean"
+        },
+        "a": {
+            alias: "action",
+            describe: "the name of an action to run before taking the screenshot; actions are defined in an a JSON file, the location of which is in your config",
+            type: "string"
         }
     },
 
@@ -125,6 +130,7 @@ exports.check = function () {
     ops.landscape = argv.l;
     ops.maxParallelTasks = argv.m;
     ops.diff = argv.d;
+    ops.action = argv.a;
 
     if (COMMANDS.indexOf(ops.command) === -1) {
         yargs.showHelp();
