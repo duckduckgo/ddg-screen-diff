@@ -223,9 +223,16 @@ function getTasks(ops) {
     var tasks = [];
 
     // if we've got no hostnames passed, we screenshot our own instance
-    // if we've got one hostname, we diff it against our own instance
-    if (ops.hosts.length <= 1) {
+    // if we've got one hostname and diff is true, we diff it against our own instance
+    if (ops.hosts.length === 0 ||
+            (ops.diff && ops.hosts.length === 1)) {
         ops.hosts.unshift(getLocalHostname());
+    }
+
+    // at this stage if we're diffing we should have two hosts
+    // if not, error out
+    if (ops.diff && ops.hosts.length !== 2) {
+        throw new Error("Please pass one or two hosts if you want to run a diff");
     }
 
     // create tasks for each screen size, browser and host passed

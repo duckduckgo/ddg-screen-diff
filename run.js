@@ -32,9 +32,7 @@ createScreenshotDir().then(function () {
     // only diff if we've got two hosts - no point in doing it
     // if there's more
     // (if it's one host, the second one is assumed to be local)
-    if (ops.hosts.length === 1 || ops.hosts.length === 2) {
-        shouldDiff = true;
-    }
+    shouldDiff = ops.diff;
 
     // and build a task for each screenshot
     // see taskbuilder.js for further info on what a task object contains

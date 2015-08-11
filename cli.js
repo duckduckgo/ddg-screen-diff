@@ -39,6 +39,13 @@ var yargs = require("yargs"),
             type: "number",
             default: 2
         },
+        "d": {
+            alias: "diff",
+            describe: "run an image diff between two hosts\n"
+                + "if 1 host   is given, compare the host with localhost\n"
+                + "if 2 hosts are given, compare the two hosts",
+            type: "boolean"
+        },
         "a": {
             alias: "action",
             describe: "the name of an action to run before taking the screenshot; actions are defined in an a JSON file, the location of which is in your config",
@@ -46,10 +53,7 @@ var yargs = require("yargs"),
         }
     },
 
-    HOST_MESSAGE = "If no hosts are given, a screenshot from localhost is displayed.\n"
-        + "If  1 host   is given, compare the host with localhost\n"
-        + "If  2 hosts are given, compare the two hosts\n"
-        + "If >2 hosts are given, show screenshots for all the hosts",
+    HOST_MESSAGE = "If no hosts are given, a screenshot from localhost is displayed.",
 
     COMMANDS = ["search", "path", "ia", "group"],
 
@@ -125,6 +129,7 @@ exports.check = function () {
     ops.query = argv.q;
     ops.landscape = argv.l;
     ops.maxParallelTasks = argv.m;
+    ops.diff = argv.d;
     ops.action = argv.a;
 
     if (COMMANDS.indexOf(ops.command) === -1) {
