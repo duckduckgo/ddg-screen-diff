@@ -20,6 +20,7 @@ function untilPageHasLoaded(driver) {
         return driver.executeScript(function () {
             if (DDG.page.pageType === "serp") {
                 return $("#links .result").length > 2 &&
+                    $(".zci.is-active").length > 0 &&
                     document.readyState === "complete";
             } else {
                 return document.readyState === "complete";
