@@ -24,7 +24,6 @@ Commands:
   path    Create a screenshot against an arbitrary path
   ia      Create a screenshot against an IA
   group   Create a screenshot against a pre-defined group
-  update  Update all the NPM dependencies for this package
 
 Options:
   --version   Show version number                                                          [boolean]
