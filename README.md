@@ -131,7 +131,7 @@ $ ddg-screen-diff group "attribution"
 All the options for the other screenshot commands work here. So, say you're on instance `foo`. Calling:
 
 ```
-$ ddg-screen-diff group "example" bar -b firefox chrome
+$ ddg-screen-diff group "example" foo bar -b firefox chrome -d
 ```
 
 results in 12 screenshots in total with 6 diffs between them:
@@ -175,28 +175,24 @@ https://foo.duckduckgo.com/?q=glass+hammer on chrome at size xl
 https://foo.duckduckgo.com/?q=glass+hammer on chrome at size m
 ```
 
-Hostnames and diffing
+Hostnames
 ---
 
-By default, any of the search commands runs a search on the instance you're currently on. You can compare it against another host by passing that hostname as an extra argument.
+By default, any of the search commands runs a search on the instance you're currently on. 
 
-The following will run a search against the instance you're on and another one called `foo`:
+Passing a single hostname will run the tool against that hostname instead:
 
 ```
 $ ddg-screen-diff ia products foo
 ```
 
-Passing another hostname will diff those two hostnames. The following will compare hosts `foo` and `bar`:
-
-```
-$ ddg-screen-diff ia products foo bar
-```
-
-Passing more hostnames will simply take screenshots for those instances, without running an image diff:
+You can specify a list of hostnames, and the tool will take a screenshot of each one:
 
 ```
 $ ddg-screen-diff ia products foo bar baz qux
 ```
+
+You can also pass in `-d`/`--diff` to run an image diff between two hosts.
 
 Passing `prod` or `production` as a hostname will alias it to the production server.
 
@@ -270,7 +266,7 @@ How many screenshot tasks to run in parallel. Default is 2. If running against a
 
 ### `-d`/`--diff`
 
-Runs an image diff between the screenshots.
+Runs an image diff between the screenshots taken.
 
 If you passed in two hosts, the diff is between those two.
 If you passed in one host, the other one is assumed to be your local host.
