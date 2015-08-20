@@ -136,18 +136,18 @@ $ ddg-screen-diff group "example" foo bar -b firefox chrome -d
 results in 12 screenshots in total with 6 diffs between them:
 
 ```
-https://foo.duckduckgo.com/?q=kitchen+sink on firefox
-https://bar.duckduckgo.com/?q=kitchen+sink on firefox
-https://foo.duckduckgo.com/?q=kitchen+sink on chrome
-https://bar.duckduckgo.com/?q=kitchen+sink on chrome
-https://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox
-https://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox
-https://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome
-https://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome
-https://foo.duckduckgo.com/?q=kitchen+sink&ia=products on firefox
-https://bar.duckduckgo.com/?q=kitchen+sink&ia=products on firefox
-https://foo.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
-https://bar.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
+http://foo.duckduckgo.com/?q=kitchen+sink on firefox
+http://bar.duckduckgo.com/?q=kitchen+sink on firefox
+http://foo.duckduckgo.com/?q=kitchen+sink on chrome
+http://bar.duckduckgo.com/?q=kitchen+sink on chrome
+http://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox
+http://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on firefox
+http://foo.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome
+http://bar.duckduckgo.com/?q=kitchen+sink&kz=-1 on chrome
+http://foo.duckduckgo.com/?q=kitchen+sink&ia=products on firefox
+http://bar.duckduckgo.com/?q=kitchen+sink&ia=products on firefox
+http://foo.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
+http://bar.duckduckgo.com/?q=kitchen+sink&ia=products on chrome
 ```
 
 You can also specify a list of sizes and browsers to be run on a group item, as well as an action name. These override the settings passed via the CLI. So for example, given the following group called `override`:
@@ -168,10 +168,10 @@ $ ddg-screen-diff group "override" -b chrome -s xl m
 Will result in the following screenshots being taken:
 
 ```
-https://foo.duckduckgo.com/?q=kitchen+sink on firefox at size s
-https://foo.duckduckgo.com/?q=kitchen+sink on ie8 at size s
-https://foo.duckduckgo.com/?q=glass+hammer on chrome at size xl
-https://foo.duckduckgo.com/?q=glass+hammer on chrome at size m
+http://foo.duckduckgo.com/?q=kitchen+sink on firefox at size s
+http://foo.duckduckgo.com/?q=kitchen+sink on ie8 at size s
+http://foo.duckduckgo.com/?q=glass+hammer on chrome at size xl
+http://foo.duckduckgo.com/?q=glass+hammer on chrome at size m
 ```
 
 Hostnames
@@ -194,6 +194,35 @@ $ ddg-screen-diff ia products foo bar baz qux
 You can also pass in `-d`/`--diff` to run an image diff between two hosts.
 
 Passing `prod` or `production` as a hostname will alias it to the production server.
+
+### Ports
+
+You can pass a subdomain with a port. So:
+
+```
+$ ddg-screen-diff search "kitchen sink" foo:5000
+```
+
+Will result in a screenshot URL of:
+
+```
+http://foo.duckduckgo.com:5000/?q=kitchen+sink
+```
+
+### Other subdomains
+
+Any hostname you pass with a `.` will be assumed not to be a subdomain. Which means you can do:
+
+```
+$ ddg-screen-diff path "forum" duck.co
+```
+
+And you get a screenshot of:
+
+```
+http://duck.co/forum
+```
+
 
 Actions
 ---
