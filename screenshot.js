@@ -18,7 +18,9 @@ function untilPageHasLoaded(driver) {
         // on SERP, we make an extra check to make sure that the deep call
         // has also finished
         return driver.executeScript(function () {
-            if (DDG.page.pageType === "serp") {
+            if (window.DDG &&
+                    window.DDG.page &&
+                    window.DDG.page.pageType === "serp") {
                 return $("#links .result").length > 2 &&
                     $(".zci.is-active").length > 0 &&
                     document.readyState === "complete";
@@ -148,7 +150,7 @@ function getDriver(task, cachedDrivers) {
 function getScreenshotPromise(task, cachedDrivers) {
     return function () {
         var deferred = webdriver.promise.defer(),
-            url = "https://" + task.host + "/" + task.path,
+            url = "http://" + task.host + "/" + task.path,
             driver = getDriver(task, cachedDrivers);
 
         console.log("taking screenshot for", url,
