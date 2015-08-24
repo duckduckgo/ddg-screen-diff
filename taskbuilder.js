@@ -129,8 +129,18 @@ function getTask(ops) {
         host,
         actions;
 
+    // alias prod(uction) to the production hostname
     if (ops.host.match(/prod(uction)?/)) {
         host = DDG;
+    // if hostname contains a dot, assume it's a full one
+    // rather than a subdomain
+    } else if (ops.host.indexOf(".") > -1) {
+        host = ops.host;
+    // if there's a port but no dot assume a duckduckgo subdomain with a port
+    } else if (ops.host.indexOf(":") > -1) {
+        var parts = ops.host.split(":");
+
+        host = parts[0] + "." + DDG + ":" + parts[1];
     } else {
         host = ops.host + "." + DDG;
     }
