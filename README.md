@@ -209,7 +209,7 @@ Will result in a screenshot URL of:
 http://foo.duckduckgo.com:5000/?q=kitchen+sink
 ```
 
-### Other subdomains
+### Other domains
 
 Any hostname you pass with a `.` will be assumed not to be a subdomain. Which means you can do:
 
