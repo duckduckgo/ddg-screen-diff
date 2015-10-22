@@ -51,6 +51,7 @@ var Promise = require("bluebird"),
  * @param {object} ops
  *   - {string} command
  *   - {string} commandValue
+ *   - {string} qs
  *   - {string} query (ia only)
  *   - {string} tabName (ia only)
  */
@@ -67,6 +68,16 @@ function getPath(ops) {
         case "ia":
             path = "?q=" + ops.query.replace(/\s/g, "+") + "&ia=" + ops.tabName;
             break;
+    }
+
+    // append arbitrary query string to path
+    if (ops.qs) {
+        // make sure there's a & if ops.qs doesn't already have it
+        if (ops.qs.indexOf("&") !== 0) {
+            path += "&";
+        }
+
+        path += ops.qs;
     }
 
     return path;
@@ -121,6 +132,7 @@ function getLocalHostname() {
  *   - {string} command
  *   - {string} commandValue
  *   - {string} action
+ *   - {string} qs
  *   - {string} query (ia only)
  *   - {string} tabName (ia only)
  */
@@ -315,6 +327,10 @@ function buildGroup(ops) {
 
         if (groupItem.action) {
             opsCopy.action = groupItem.action;
+        }
+
+        if (groupItem.qs) {
+            opsCopy.qs = groupItem.qs;
         }
 
         return exports.build(opsCopy);

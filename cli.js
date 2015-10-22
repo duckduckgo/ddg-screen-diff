@@ -50,6 +50,10 @@ var yargs = require("yargs"),
             alias: "action",
             describe: "the name of an action to run before taking the screenshot; actions are defined in an a JSON file, the location of which is in your config",
             type: "string"
+        },
+        "qs": {
+            describe: "append arbitrary query string component (settings etc) to be added to the ones that the tool builds",
+            type: "string"
         }
     },
 
@@ -131,6 +135,7 @@ exports.check = function () {
     ops.maxParallelTasks = argv.m;
     ops.diff = argv.d;
     ops.action = argv.a;
+    ops.qs = argv.qs;
 
     if (COMMANDS.indexOf(ops.command) === -1) {
         yargs.showHelp();
