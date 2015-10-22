@@ -300,3 +300,11 @@ If you passed in two hosts, the diff is between those two.
 If you passed in one host, the other one is assumed to be your local host.
 
 In any other case, the app throws an error.
+
+### `--qs`
+
+Append an arbitrary query string to the one that ddg-screen-diff already builds. E.g. test the dark theme by doing:
+
+```
+$ ddg-screen-diff ia products --qs="kae=d"
+```
