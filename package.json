@@ -3,9 +3,9 @@
   "version": "0.1.3",
   "description": "Visual regression tool for DuckDuckGo",
   "bin": {
-      "ddg-screen-diff": "./run.js"
+      "ddg-screen-diff": "./lib/run.js"
   },
-  "main": "./run.js",
+  "main": "./lib/run.js",
   "repository": {
       "type": "git",
       "url": "https://github.com/duckduckgo/ddg-screen-diff"
