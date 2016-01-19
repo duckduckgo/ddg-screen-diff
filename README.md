@@ -11,6 +11,15 @@ This is an internal tool and is still under active development. Our priorities a
 
 If you have any ideas about how to make this happen feel free to create an issue or a pull request.
 
+Setup
+---
+
+```
+$ sudo npm install -g ddg-screen-diff
+```
+
+Also, make sure that you've got PhantomJS and ImageMagick (or GraphicsMagick) in your $PATH.
+
 Usage
 ---
 
