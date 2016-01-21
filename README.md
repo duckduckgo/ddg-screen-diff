@@ -14,9 +14,13 @@ If you have any ideas about how to make this happen feel free to create an issue
 Setup
 ---
 
+You need to install [NodeJS](https://nodejs.org/) - the preferred method will depend on your distro. We've only tested this with v10.37, but it *should* work with newer versions of NodeJS.
+
 ```
 $ sudo npm install -g ddg-screen-diff
 ```
+
+With a Debian-based Linux distro you may get an error like `node: not found`. The fix for that is to install the `nodejs-legacy` package (`sudo apt-get nodejs-legacy`).
 
 Also, make sure that you've got PhantomJS and ImageMagick (or GraphicsMagick) in your $PATH.
 
