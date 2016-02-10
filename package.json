@@ -11,7 +11,7 @@
       "url": "https://github.com/duckduckgo/ddg-screen-diff"
   },
   "dependencies": {
-    "bluebird": "2.9.33",
+    "bluebird": "3.2.2",
     "gm": "1.18.1",
     "selenium-webdriver": "2.46.1",
     "yargs": "3.15.0"
