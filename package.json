@@ -3,16 +3,17 @@
   "version": "0.1.4",
   "description": "Visual regression tool for DuckDuckGo",
   "bin": {
-      "ddg-screen-diff": "./lib/run.js"
+    "ddg-screen-diff": "./lib/run.js"
   },
   "main": "./lib/run.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/duckduckgo/ddg-screen-diff"
+    "type": "git",
+    "url": "https://github.com/duckduckgo/ddg-screen-diff"
   },
   "dependencies": {
     "bluebird": "2.9.33",
     "gm": "1.18.1",
+    "phantomjs-prebuilt": "2.1.4",
     "selenium-webdriver": "2.46.1",
     "yargs": "3.15.0"
   }

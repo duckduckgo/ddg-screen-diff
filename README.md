@@ -22,7 +22,7 @@ $ sudo npm install -g ddg-screen-diff
 
 With a Debian-based Linux distro you may get an error like `node: not found`. The fix for that is to install the `nodejs-legacy` package (`sudo apt-get install nodejs-legacy`).
 
-Also, make sure that you've got PhantomJS and ImageMagick (or GraphicsMagick) in your $PATH.
+Also, make sure that you've got ImageMagick (or GraphicsMagick) in your $PATH.
 
 Usage
 ---
