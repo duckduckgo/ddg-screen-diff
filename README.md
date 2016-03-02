@@ -138,6 +138,44 @@ Say you add `[groupDir]/attribution.json`. You can invoke this group by calling:
 $ ddg-screen-diff group "attribution"
 ```
 
+#### Using a script to build a group
+
+In some cases, it might be useful to build a group based on a list that changes - say you've got a list of IAs that's constantly changing.
+
+A script can be anything that:
+
+- returns a JSON string that looks like a group JSON file above
+- can be executed on the shell (so it needs `chmod +x` and a shebang)
+
+For example, you could have a Perl script that creates a group for all the cheatsheets (this assumes you've got `DDG::Meta::Data` installed):
+
+```perl
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use DDG::Meta::Data;
+use JSON;
+
+my $meta = DDG::Meta::Data->by_id;
+
+my @results;
+
+while (my ($id, $data) = each $meta){
+    next if $data->{perl_module} ne "DDG::Goodie::CheatSheets";
+    next if $data->{dev_milestone} ne "live";
+
+    my $result = {
+        "command" => "ia",
+        "commandValue" => $data->{id}
+    };
+
+    push(@results, $result);
+}
+
+print encode_json(\@results);
+```
+
 #### Options
 
 All the options for the other screenshot commands work here. So, say you're on instance `foo`. Calling:
