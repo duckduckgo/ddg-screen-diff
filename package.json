@@ -16,7 +16,7 @@
     "gm": "1.23.0",
     "request": "2.74.0",
     "phantomjs-prebuilt": "2.1.11",
-    "selenium-webdriver": "3.0.0-beta-2",
-    "yargs": "4.8.1"
+    "selenium-webdriver": "2.53.2",
+    "yargs": "3.32.0"
   }
 }
