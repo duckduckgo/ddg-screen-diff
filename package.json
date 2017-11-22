@@ -15,7 +15,7 @@
     "compressjs": "1.0.3",
     "gm": "1.23.0",
     "request": "2.74.0",
-    "phantomjs-prebuilt": "2.1.11",
+    "phantomjs": "1.9.8",
     "selenium-webdriver": "2.53.2",
     "yargs": "3.32.0"
   }
