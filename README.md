@@ -22,7 +22,13 @@ $ sudo npm install -g ddg-screen-diff
 
 With a Debian-based Linux distro you may get an error like `node: not found`. The fix for that is to install the `nodejs-legacy` package (`sudo apt-get install nodejs-legacy`).
 
-Also, make sure that you've got ImageMagick (or GraphicsMagick) in your $PATH.
+Other dependencies:
+
+- chromium-browser (version 59 and above)
+- chromium-chromedriver
+- imagemagick or graphicsmagick
+
+You may need to add `/usr/lib/chromium-browser/` to your $PATH.
 
 Usage
 ---
@@ -304,16 +310,16 @@ Other options
 
 ### `-b`/`--browsers`
 
-Pass in a list of browsers to run the query against. By default the query is run headlessly with PhantomJS.
+Pass in a list of browsers to run the query against. By default the query is run with headless Chromium.
 
 Any other browsers are run on BrowserStack's service, so they'll run a bit more slowly.
 
 If you've got an account with them, set your login credentials in the env variables `DDG_BROWSERSTACK_USERNAME` and `DDG_BROWSERSTACK_KEY`.
 
-As an example, if you wanted to run the tool on IE8, phantomjs and Firefox, you can run:
+As an example, if you wanted to run the tool on IE8, headless Chromium and Firefox, you can run:
 
 ```
-$ ddg-screen-diff ia products -b ie8 phantomjs firefox
+$ ddg-screen-diff ia products -b ie8 headless-chromium firefox
 ```
 
 Passing `desktop` aliases to the latest versions of IE, Firefox, Chrome and Safari.
