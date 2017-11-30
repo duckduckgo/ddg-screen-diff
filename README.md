@@ -291,7 +291,7 @@ Here's an example action file called `click_button_and_mouse_out.json`:
 ```json
 [
     { "action": "click", "target": "#button_id" },
-    { "action": "mouseMove", "target": { x: 10, y: 10 }
+    { "action": "mouseMove", "target": { "x": 10, "y": 10 }
 ]
 ```
 
