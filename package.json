@@ -16,6 +16,7 @@
     "gm": "1.23.0",
     "request": "2.74.0",
     "selenium-webdriver": "2.53.2",
+    "xvfb": "0.2.3",
     "yargs": "3.32.0"
   }
 }
