@@ -1,14 +1,14 @@
 {
-  "name": "ddg-screen-diff",
+  "name": "marcos-screen-diff",
   "version": "0.3.0",
   "description": "Visual regression tool for DuckDuckGo",
   "bin": {
-    "ddg-screen-diff": "./lib/run.js"
+    "marcos-screen-diff": "./lib/run.js"
   },
   "main": "./lib/run.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/duckduckgo/ddg-screen-diff"
+    "url": "https://github.com/duckduckgo/marcos-screen-diff"
   },
   "dependencies": {
     "bluebird": "3.4.1",
