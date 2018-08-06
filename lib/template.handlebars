@@ -13,18 +13,16 @@
     <meta http-equiv='Expires' content='0' />
 
     <style>
-        .row {
+        .item {
+
+        }
+        .image-row {
             display: flex;
             flex-direction: row;
             width: 100vw;
         }
 
-        .row__item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .row__item__image {
+        .image-row__image {
             display: block;
         }
     </style>
@@ -33,29 +31,32 @@
 <body>
 
     {{#each data}}
-        {{#if before}}
-        <div class='row'>
-            <div class='row__item'>
-                <span class='row__item__description'><a href="https://{{before.host}}/{{before.path}}" target="_blank">{{before.host}}/{{before.path}}</a></span>
-                <a href="{{beforeImage}}" target="_blank" class='row__item__image'><img src="{{beforeImage}}" alt='before'/></a>
-            </div>
-            <div class='row__item'>
-                <span class='row__item__description'><a href="https://{{after.host}}/{{after.path}}" target="_blank">{{after.host}}/{{after.path}}</a></span>
-                <a href="{{afterImage}}" target="_blank" class='row__item__image'><img src="{{afterImage}}" alt='before'/></a>
-            </div>
-            <div class='row__item'>
-                <span class='row__item__description'>diff</span>
-                <a href="{{diffImage}}" target="_blank" class='row__item__image'><img src="{{diffImage}}" alt='before'/></a>
-            </div>
-        </div>
-        {{else}}
-            <div class='row'>
-                <div class='row__item'>
-                    <span class='row__item__description'><a href="https://{{task.host}}/{{task.path}}" target="_blank">{{task.host}}/{{task.path}}</a></span>
-                    <a href="{{taskImage}}" target="_blank" class='row__item__image'><img src="{{taskImage}}" /></a>
+        <div class='item'>
+            {{#if before}}
+                <p class='item__description'>Comparing <a href="https://{{before.host}}/{{before.path}}" target="_blank">{{before.host}}/{{before.path}}</a> and <a href="https://{{after.host}}/{{after.path}}" target="_blank">{{after.host}}/{{after.path}}</a>.</p>
+            {{else}}
+                <p class='item__description'>Showing <a href="https://{{task.host}}/{{task.path}}" target="_blank">{{task.host}}/{{task.path}}</a>.</p>
+            {{/if}}
+
+            {{#if before.size}}
+                <p class='item__description'>Size: {{before.size.width}}x{{before.size.height}} ({{before.sizeName}})</p>
+            {{/if}}
+            {{#if before.browser}}
+                <p class='item__description'>Browser: {{before.sbrowser}}</p>
+            {{/if}}
+
+            {{#if before}}
+                <div class='image-row'>
+                        <a href="{{beforeImage}}" target="_blank" class='image-row__image'><img src="{{beforeImage}}" alt='before'/></a>
+                        <a href="{{afterImage}}" target="_blank" class='image-row__image'><img src="{{afterImage}}" alt='before'/></a>
+                        <a href="{{diffImage}}" target="_blank" class='image-row__image'><img src="{{diffImage}}" alt='before'/></a>
                 </div>
-            </div>
-        {{/if}}
+            {{else}}
+                <div class='image-row'>
+                    <a href="{{taskImage}}" target="_blank" class='image-row__image'><img src="{{taskImage}}" /></a>
+                </div>
+            {{/if}}
+        </div>
     {{/each}}
 
 </body>
