@@ -16,6 +16,15 @@
         .item {
 
         }
+
+        .item__description {
+
+        }
+
+        .item__description {
+            font-weight: bold;
+            color: green;
+        }
         .image-row {
             display: flex;
             flex-direction: row;
@@ -26,14 +35,15 @@
             display: block;
         }
 
-        .image-row__link::before {
-            content: attr(data-title);
-            position: absolute;
-        }
-
         .image-row__link__image {
             object-fit: contain;
             width: 100%;
+            margin-right: 5px;
+        }
+
+        .image-row__link__image::before {
+            content: attr(data-title);
+            position: absolute;
         }
     </style>
 </head>
@@ -41,7 +51,7 @@
 <body>
 
     {{#each data}}
-        <div class='item'>
+        <div class='item {{#if areEqual}}item--collapsed{{/if}}'>
             {{#if taskA}}
                 <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
             {{else}}
@@ -54,12 +64,15 @@
             {{#if taskA.browser}}
                 <p class='item__description'>Browser: {{taskA.browser}}</p>
             {{/if}}
+            {{#if areEqual}}
+                <p class='item__description item__description--strong'>Images are equal.</p>
+            {{/if}}
             
             <div class='image-row'>
-                    <a href="{{taskAImage}}" target="_blank" class='image-row__link'><img src="{{taskAImage}}" alt='A' class='image-row__link__image' data-title='A'/></a>
+                    <a href="{{taskAImage}}" target="_blank" class='image-row__link'><img src="{{taskAImage}}" alt='A' class='image-row__link__image'/></a>
                     {{#if taskB}}
-                        <a href="{{taskBImage}}" target="_blank" class='image-row__link'><img src="{{taskBImage}}" alt='B' data-title='B' class='image-row__link__image'/></a>
-                        <a href="{{diffImage}}" target="_blank" class='image-row__link'><img src="{{diffImage}}" alt='diff' data-title='diff' class='image-row__link__image'></a>
+                        <a href="{{taskBImage}}" target="_blank" class='image-row__link'><img src="{{taskBImage}}" alt='B' class='image-row__link__image'/></a>
+                        <a href="{{diffImage}}" target="_blank" class='image-row__link'><img src="{{diffImage}}" alt='diff' class='image-row__link__image'></a>
                     {{/if}}
             </div>
         </div>
