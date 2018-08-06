@@ -14,7 +14,7 @@
     "bluebird": "3.4.1",
     "compressjs": "1.0.3",
     "gm": "1.23.0",
-    "mustache": "^2.3.0",
+    "handlebars": "^4.0.11",
     "request": "2.74.0",
     "selenium-webdriver": "2.53.2",
     "yargs": "3.32.0"
