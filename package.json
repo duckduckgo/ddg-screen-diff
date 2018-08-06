@@ -15,6 +15,7 @@
     "compressjs": "1.0.3",
     "gm": "1.23.1",
     "handlebars": "^4.0.11",
+    "image-diff": "^2.0.0",
     "request": "2.74.0",
     "selenium-webdriver": "2.53.2",
     "yargs": "3.32.0"
