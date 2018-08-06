@@ -11,16 +11,36 @@
     <meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
     <meta http-equiv='Pragma' content='no-cache' />
     <meta http-equiv='Expires' content='0' />
+
+    <style>
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
 </head>
 
 <body>
 
     {{#each data}}
         {{#if before}}
-            <img src="{{beforeImage}}" />
-            <img src="{{afterImage}}" />
+        <div class='row'>
+            <div class='row_image'>
+                <img src="{{beforeImage}}" alt='before'/>
+            </div>
+            <div class='row_image'>
+                <img src="{{afterImage}}" alt='after'/>
+            </div>
+            <div class='row_image'>
+                <img src="{{diffImage}}" alt='diff'/>
+            </div>
+        </div>
         {{else}}
-            <img src="{{taskImage}}" />
+            <div class='row'>
+                <div class='row_image'>
+                    <img src="{{taskImage}}" />
+                </div>
+            </div>
         {{/if}}
     {{/each}}
 
