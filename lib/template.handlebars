@@ -13,15 +13,25 @@
     <meta http-equiv='Expires' content='0' />
 
     <style>
-        .item {
-            border-bottom: solid black 2px;
+        *, *:before, *:after {
+            box-sizing: border-box;
         }
+        .item {
+            border-bottom: solid lightgray 2px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
 
         .item--collapsed .item__body {
             display: none;
         }
 
         .item__head {
+            background: lightgray;
+            vertical-align: middle;
+            justify-content: center;
+            display: flex;
             cursor: pointer;
         }
 
@@ -95,7 +105,7 @@
 
         Array.from(headers).forEach(header => {
             header.addEventListener('click', () => {
-                this.parentNode.classList.toggle('item--collapsed');
+                header.parentNode.classList.toggle('item--collapsed');
             })
         })
     </script>
