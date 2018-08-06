@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ddg-screen-diff</title>
 
     <!-- make sure generated page doesn't cache -->
     <meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
@@ -24,6 +24,10 @@
 
         .item--collapsed .item__body {
             display: none;
+        }
+
+        .item--valid .item__head {
+            background: lightgreen;
         }
 
         .item__head {
@@ -73,7 +77,7 @@
 <body>
 
     {{#each data}}
-        <div class='item {{#if areEqual }}item--collapsed{{/if}}'>
+        <div class='item {{#if areEqual }}item--collapsed item--valid{{/if}}'>
             <div class='item__head js-item-head'>
                 {{#if taskA}}
                     <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
