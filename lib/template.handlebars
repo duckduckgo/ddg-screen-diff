@@ -79,7 +79,7 @@
     {{#each data}}
         <div class='item {{#if areEqual }}item--collapsed item--valid{{/if}}'>
             <div class='item__head js-item-head'>
-                {{#if taskA}}
+                {{#if taskB}}
                     <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
                 {{else}}
                     <p class='item__description'>Showing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a>.</p>
