@@ -18,7 +18,7 @@
         }
         .item {
             border-bottom: solid lightgray 2px;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             margin-bottom: 10px;
         }
 
@@ -63,7 +63,7 @@
             content: attr(data-title);
             position: absolute;
             left: 0;
-            bottom: -8px;
+            bottom: -12px;
             font-size: 12px;
         }
 
@@ -86,7 +86,7 @@
                 {{/if}}
 
                 {{#if areEqual}}
-                    <p class='item__description item__description--strong'>Images are equal ({{percentageDiff}}% difference).</p>
+                    <p class='item__description item__description--strong'>Images are equal.</p>
                 {{/if}}
             </div>
 
