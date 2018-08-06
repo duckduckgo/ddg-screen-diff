@@ -15,6 +15,15 @@
 
 <body>
 
+    {{#each data}}
+        {{#if before}}
+            <img src="{{beforeImage}}" />
+            <img src="{{afterImage}}" />
+        {{else}}
+            <img src="{{taskImage}}" />
+        {{/if}}
+    {{#each}}
+
 </body>
 
 </html>
