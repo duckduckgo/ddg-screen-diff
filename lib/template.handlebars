@@ -36,7 +36,6 @@
         }
 
         .item__description {
-            color: gray;
         }
 
         .item__description--strong {
@@ -52,15 +51,18 @@
             display: block;
         }
 
-        .image-row__link__image {
-            object-fit: contain;
-            width: 100%;
-            margin-right: 10px;
+        .image-row__link::before {
+            content: attr(data-title);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 10px;
         }
 
-        .image-row__link__image::before {
-            content: attr(alt);
-            position: absolute;
+        .image-row__link__image {
+            object-fit: contain;
+            max-width: 100%;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -90,10 +92,10 @@
                 {{/if}}
                 
                 <div class='image-row'>
-                        <a href="{{taskAImage}}" target="_blank" class='image-row__link'><img src="{{taskAImage}}" alt='A' class='image-row__link__image'/></a>
+                        <a href="{{taskAImage}}" target="_blank" class='image-row__link' data-title='A'><img src="{{taskAImage}}" alt='A' class='image-row__link__image'/></a>
                         {{#if taskB}}
-                            <a href="{{taskBImage}}" target="_blank" class='image-row__link'><img src="{{taskBImage}}" alt='B' class='image-row__link__image'/></a>
-                            <a href="{{diffImage}}" target="_blank" class='image-row__link'><img src="{{diffImage}}" alt='diff' class='image-row__link__image'></a>
+                            <a href="{{taskBImage}}" target="_blank" class='image-row__link' data-title='B'><img src="{{taskBImage}}" alt='B' class='image-row__link__image'/></a>
+                            <a href="{{diffImage}}" target="_blank" class='image-row__link' data-title='Diff'><img src="{{diffImage}}" alt='diff' class='image-row__link__image'></a>
                         {{/if}}
                 </div>
             </div>
