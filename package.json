@@ -13,7 +13,7 @@
   "dependencies": {
     "bluebird": "3.4.1",
     "compressjs": "1.0.3",
-    "gm": "1.23.0",
+    "gm": "1.23.1",
     "handlebars": "^4.0.11",
     "request": "2.74.0",
     "selenium-webdriver": "2.53.2",
