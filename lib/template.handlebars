@@ -73,7 +73,7 @@
 <body>
 
     {{#each data}}
-        <div class='item {{#if equality < 0.1 }}item--collapsed{{/if}}'>
+        <div class='item {{#if areEqual }}item--collapsed{{/if}}'>
             <div class='item__head js-item-head'>
                 {{#if taskA}}
                     <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
@@ -82,7 +82,7 @@
                 {{/if}}
 
                 {{#if areEqual}}
-                    <p class='item__description item__description--strong'>Images are equal.</p>
+                    <p class='item__description item__description--strong'>Images are equal (equality = {{equality}}).</p>
                 {{/if}}
             </div>
 
