@@ -16,6 +16,12 @@
         .row {
             display: flex;
             flex-direction: row;
+            width: 100vw;
+        }
+
+        .row_item {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -25,20 +31,24 @@
     {{#each data}}
         {{#if before}}
         <div class='row'>
-            <div class='row_image'>
-                <img src="{{beforeImage}}" alt='before'/>
+            <div class='row_item'>
+                <span class='row_item_description'>{{before.host}}</span>
+                <a href="{{beforeImage}}" target="_blank" class='row_item_image'><img src="{{beforeImage}}" alt='before'/></a>
             </div>
-            <div class='row_image'>
-                <img src="{{afterImage}}" alt='after'/>
+            <div class='row_item'>
+                <span class='row_item_description'>{{after.host}}</span>
+                <a href="{{afterImage}}" target="_blank" class='row_item_image'><img src="{{afterImage}}" alt='before'/></a>
             </div>
-            <div class='row_image'>
-                <img src="{{diffImage}}" alt='diff'/>
+            <div class='row_item'>
+                <span class='row_item_description'>diff</span>
+                <a href="{{diffImage}}" target="_blank" class='row_item_image'><img src="{{diffImage}}" alt='before'/></a>
             </div>
         </div>
         {{else}}
             <div class='row'>
-                <div class='row_image'>
-                    <img src="{{taskImage}}" />
+                <div class='row_item'>
+                    <span class='row_item_description'>{{task.host}}</span>
+                    <a href="{{taskImage}}" target="_blank" class='row_item_image'><img src="{{taskImage}}" /></a>
                 </div>
             </div>
         {{/if}}
