@@ -22,8 +22,18 @@
             width: 100vw;
         }
 
-        .image-row__image {
+        .image-row__link {
             display: block;
+        }
+
+        .image-row__link::before {
+            content: attr(data-title);
+            position: absolute;
+        }
+
+        .image-row__link__image {
+            object-fit: contain;
+            width: 100%;
         }
     </style>
 </head>
@@ -46,10 +56,10 @@
             {{/if}}
             
             <div class='image-row'>
-                    <a href="{{taskAImage}}" target="_blank" class='image-row__image'><img src="{{taskAImage}}" alt='before'/></a>
+                    <a href="{{taskAImage}}" target="_blank" class='image-row__link'><img src="{{taskAImage}}" alt='A' class='image-row__link__image' data-title='A'/></a>
                     {{#if taskB}}
-                        <a href="{{taskBImage}}" target="_blank" class='image-row__image'><img src="{{taskBImage}}" alt='before'/></a>
-                        <a href="{{diffImage}}" target="_blank" class='image-row__image'><img src="{{diffImage}}" alt='before'/></a>
+                        <a href="{{taskBImage}}" target="_blank" class='image-row__link'><img src="{{taskBImage}}" alt='B' data-title='B' class='image-row__link__image'/></a>
+                        <a href="{{diffImage}}" target="_blank" class='image-row__link'><img src="{{diffImage}}" alt='diff' data-title='diff' class='image-row__link__image'></a>
                     {{/if}}
             </div>
         </div>
