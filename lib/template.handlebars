@@ -32,30 +32,26 @@
 
     {{#each data}}
         <div class='item'>
-            {{#if before}}
-                <p class='item__description'>Comparing <a href="https://{{before.host}}/{{before.path}}" target="_blank">{{before.host}}/{{before.path}}</a> and <a href="https://{{after.host}}/{{after.path}}" target="_blank">{{after.host}}/{{after.path}}</a>.</p>
+            {{#if taskA}}
+                <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
             {{else}}
-                <p class='item__description'>Showing <a href="https://{{task.host}}/{{task.path}}" target="_blank">{{task.host}}/{{task.path}}</a>.</p>
+                <p class='item__description'>Showing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a>.</p>
             {{/if}}
 
-            {{#if before.size}}
-                <p class='item__description'>Size: {{before.size.width}}x{{before.size.height}} ({{before.sizeName}})</p>
+            {{#if taskA.size}}
+                <p class='item__description'>Size: {{taskA.size.width}}x{{taskA.size.height}} ({{taskA.sizeName}})</p>
             {{/if}}
-            {{#if before.browser}}
-                <p class='item__description'>Browser: {{before.browser}}</p>
+            {{#if taskA.browser}}
+                <p class='item__description'>Browser: {{taskA.browser}}</p>
             {{/if}}
-
-            {{#if before}}
-                <div class='image-row'>
-                        <a href="{{beforeImage}}" target="_blank" class='image-row__image'><img src="{{beforeImage}}" alt='before'/></a>
-                        <a href="{{afterImage}}" target="_blank" class='image-row__image'><img src="{{afterImage}}" alt='before'/></a>
+            
+            <div class='image-row'>
+                    <a href="{{taskAImage}}" target="_blank" class='image-row__image'><img src="{{taskAImage}}" alt='before'/></a>
+                    {{#if taskB}}
+                        <a href="{{taskBImage}}" target="_blank" class='image-row__image'><img src="{{taskBImage}}" alt='before'/></a>
                         <a href="{{diffImage}}" target="_blank" class='image-row__image'><img src="{{diffImage}}" alt='before'/></a>
-                </div>
-            {{else}}
-                <div class='image-row'>
-                    <a href="{{taskImage}}" target="_blank" class='image-row__image'><img src="{{taskImage}}" /></a>
-                </div>
-            {{/if}}
+                    {{/if}}
+            </div>
         </div>
     {{/each}}
 
