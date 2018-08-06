@@ -51,14 +51,15 @@
 
         .image-row__link {
             display: block;
+            psoition: relative;
         }
 
         .image-row__link::before {
             content: attr(data-title);
             position: absolute;
             left: 0;
-            top: 0;
-            font-size: 10px;
+            bottom: -8px;
+            font-size: 12px;
         }
 
         .image-row__link__image {
@@ -72,7 +73,7 @@
 <body>
 
     {{#each data}}
-        <div class='item {{#if areEqual}}item--collapsed{{/if}}'>
+        <div class='item {{#if equality < 0.1 }}item--collapsed{{/if}}'>
             <div class='item__head js-item-head'>
                 {{#if taskA}}
                     <p class='item__description'>Comparing <a href="https://{{taskA.host}}/{{taskA.path}}" target="_blank">{{taskA.host}}/{{taskA.path}}</a> and <a href="https://{{taskB.host}}/{{taskB.path}}" target="_blank">{{taskB.host}}/{{taskB.path}}</a>.</p>
