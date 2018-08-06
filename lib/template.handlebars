@@ -99,10 +99,10 @@
                 {{/if}}
                 
                 <div class='image-row'>
-                        <a href="{{taskAImage}}" target="_blank" class='image-row__link' data-title='A'><img src="{{taskAImage}}?{{random}}" alt='A' class='image-row__link__image'/></a>
+                        <a href="{{taskAImage}}" target="_blank" class='image-row__link' data-title='A'><img src="{{taskAImage}}?{{../random}}" alt='A' class='image-row__link__image'/></a>
                         {{#if taskB}}
-                            <a href="{{taskBImage}}" target="_blank" class='image-row__link' data-title='B'><img src="{{taskBImage}}?{{random}}" alt='B' class='image-row__link__image'/></a>
-                            <a href="{{diffImage}}" target="_blank" class='image-row__link' data-title='Diff ({{percentageDiff}}%)'><img src="{{diffImage}}?{{random}}" alt='diff' class='image-row__link__image'></a>
+                            <a href="{{taskBImage}}" target="_blank" class='image-row__link' data-title='B'><img src="{{taskBImage}}?{{../random}}" alt='B' class='image-row__link__image'/></a>
+                            <a href="{{diffImage}}" target="_blank" class='image-row__link' data-title='Diff ({{percentageDiff}}%)'><img src="{{diffImage}}?{{../random}}" alt='diff' class='image-row__link__image'></a>
                         {{/if}}
                 </div>
             </div>
