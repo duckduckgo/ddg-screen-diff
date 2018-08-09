@@ -1,6 +1,6 @@
 {
   "name": "@duckduckgo/ddg-screen-diff",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Visual regression tool for DuckDuckGo",
   "bin": {
     "ddg-screen-diff": "./lib/run.js"
